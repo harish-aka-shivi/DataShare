@@ -1,5 +1,7 @@
 package com.example.root.datashare;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by root on 1/7/16.
  */
@@ -7,14 +9,15 @@ public class AppDetails {
     protected String mName;
     protected String mAppLocation;
     protected String mLink;
-    protected int iconResourceId;
+    //protected int iconResourceId;
     protected boolean isCheckBoxSelected ;
-
+    protected Drawable iconDrawableId;
     public AppDetails() {}
 
-    public AppDetails(String name, int iconResourceId) {
+    public AppDetails(String name, Drawable iconDrawableId, String AppLocation) {
         this.mName = name;
-        this.iconResourceId = iconResourceId;
+        this.iconDrawableId = iconDrawableId;
+        this.mAppLocation = AppLocation;
     }
 
     public void setAppName(String mName) {
@@ -29,9 +32,9 @@ public class AppDetails {
         this.mLink = mLink;
     }
 
-    public void setIconResourceId(int iconResourceId) {
+    /*public void setIconResourceId(int iconResourceId) {
         this.iconResourceId = iconResourceId;
-    }
+    }*/
 
     public String getAppLocation() {
         return mAppLocation;
@@ -45,10 +48,6 @@ public class AppDetails {
         return mName;
     }
 
-    public int getIconResourceId() {
-        return iconResourceId;
-    }
-
     public void setCheckBoxSelected(boolean checkBoxSelected) {
         isCheckBoxSelected = checkBoxSelected;
     }
@@ -56,5 +55,17 @@ public class AppDetails {
     public boolean getCheckBoxSelected() {
         return isCheckBoxSelected;
     }
+
+    public Drawable getIconDrawableId() {
+        return iconDrawableId;
+    }
+
+    public void setIconDrawableId(Drawable iconDrawableId) {
+        this.iconDrawableId = iconDrawableId;
+    }
+
+    /*public int getIconResourceId() {
+        return iconResourceId;
+    }*/
 
 }

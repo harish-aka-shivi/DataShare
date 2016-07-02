@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin">
 
     <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:elevation="4dp">
+        app:cardElevation="4dp"
+        android:elevation="4dp"
+        app:cardCornerRadius="4dp"
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:id="@+id/shareTextView"/>
+                android:id="@+id/shareTextView"
+                android:gravity="center_vertical" />
             <CheckBox
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
@@ -35,4 +34,11 @@
 
     </android.support.v7.widget.CardView>
 
-</LinearLayout>
+
+<!--
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="75dp"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+</FrameLayout>-->

@@ -2,4 +2,6 @@
     <string name="app_name">DataShare</string>
     <string name="action_settings">Settings</string>
     <string name="logo_content_description">Logo of the application</string>
+    <string name="no_selection">Nothing is selected</string>
+    <string name="share_message">DataShare</string>
 </resources>

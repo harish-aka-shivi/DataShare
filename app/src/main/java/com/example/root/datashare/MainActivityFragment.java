@@ -49,79 +49,68 @@ public class MainActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main,container,false);
 
         mFloatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.fab);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
         mRecyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(HORIZONTAL_ITEM_SPACE));
-
-        Log.d(MAIN_ACTIVITY_FRAGMENT,"Size of datase" + " " + mDataset.size());
         mCustomAdapter = new CustomAdapter(mDataset);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mCustomAdapter);
 
+        // click Listener for Floating Action Button
         mFloatingActionButton.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<Uri> listAppUri = new ArrayList<Uri>();
                 for(int i = 0; i < mDataset.size(); i++) {
-                    //Log.d(MAIN_ACTIVITY_FRAGMENT,"dataset" + mDataset.size());
                     AppDetails singleApp = mDataset.get(i);
                     if (singleApp.getCheckBoxSelected()) {
-                        Log.d(MAIN_ACTIVITY_FRAGMENT,"is Selected" + singleApp.getCheckBoxSelected());
                         String filePath = mDataset.get(i).getAppLocation();
-                        Toast.makeText(getActivity(),filePath,Toast.LENGTH_LONG).show();
                         Uri pathUri = Uri.fromFile(new File(filePath));
                         listAppUri.add(pathUri);
                     }
                 }
+                if (listAppUri.size() == 0) {
+                    Toast.makeText(getActivity(),R.string.no_selection,Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                    sendIntent.setType("*/*");
 
-                Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                sendIntent.setType("*/*");
-                //sendIntent.setType("application/nd.android.package-archive");
-                sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,listAppUri);
-                startActivity(Intent.createChooser(sendIntent, "Share app"));
+                    //Uncomment if specific applications are needed
+                    //sendIntent.setType("application/nd.android.package-archive");
+
+                    sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, listAppUri);
+                    startActivity(Intent.createChooser(sendIntent, "DataShare"));
+                }
             }
         });
-
-        /*Intent sendIntent = new Intent(Intent.ACTION_SEND);
-        String filePath = "/data/app/com.lifemaker-1/base.apk";
-*/
-        // MIME of .apk is "application/vnd.android.package-archive".
-        // but Bluetooth does not accept this. Let's use "*/*" instead.
-        //sendIntent.setType("*/*");
-
-        // Append file and send Intent
-        /*sendIntent.setPackage("com.android.bluetooth");
-        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
-        startActivity(Intent.createChooser(sendIntent, "Share app"));
-*/
         return rootView;
     }
 
+    // Initializing DataSet with AppDetails object
     private void initDataSet() {
         mDataset = new ArrayList<>();
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         final List<ResolveInfo> AppList = getContext().getPackageManager().queryIntentActivities
                 (mainIntent,0);
+
         for (ResolveInfo resolveInfo:AppList) {
-            Log.d(MAIN_ACTIVITY_FRAGMENT,resolveInfo.activityInfo.applicationInfo.
-                    loadLabel(getContext().getPackageManager()).toString() + " directory ::  " + resolveInfo.
-                    activityInfo.applicationInfo.sourceDir);
-            String appName = resolveInfo.activityInfo.applicationInfo.loadLabel(getContext().getPackageManager()).toString();
-            Drawable appIconDrawable = resolveInfo.activityInfo.applicationInfo.loadIcon(getContext().getPackageManager());
+            String appName = resolveInfo.activityInfo.applicationInfo.
+                    loadLabel(getContext().getPackageManager()).toString();
+            Drawable appIconDrawable = resolveInfo.activityInfo.
+                    applicationInfo.loadIcon(getContext().getPackageManager());
             String appLocation = resolveInfo.activityInfo.applicationInfo.publicSourceDir;
             mDataset.add(new AppDetails(appName,appIconDrawable,appLocation));
         }
     }
 
     /*
-    * Adding vertival spaces between CardViews
-    * */
+     Adding vertical spaces between CardViews
+    */
     public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-
         private final int mVerticalSpaceHeight;
 
         public VerticalSpaceItemDecoration(int mVerticalSpaceHeight) {
@@ -134,6 +123,10 @@ public class MainActivityFragment extends Fragment {
             outRect.bottom = mVerticalSpaceHeight;
         }
     }
+
+    /*
+    Adding horizontal space in RecyclerView
+    */
     public class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
         private final int mHorizontalSpaceHeight;
 

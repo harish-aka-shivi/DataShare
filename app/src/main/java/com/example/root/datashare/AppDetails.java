@@ -4,12 +4,12 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Created by root on 1/7/16.
+ * Class to store every details about the Application to be shared
  */
 public class AppDetails {
     protected String mName;
     protected String mAppLocation;
     protected String mLink;
-    //protected int iconResourceId;
     protected boolean isCheckBoxSelected ;
     protected Drawable iconDrawableId;
     public AppDetails() {}
@@ -31,10 +31,6 @@ public class AppDetails {
     public void setLink(String mLink) {
         this.mLink = mLink;
     }
-
-    /*public void setIconResourceId(int iconResourceId) {
-        this.iconResourceId = iconResourceId;
-    }*/
 
     public String getAppLocation() {
         return mAppLocation;
@@ -63,9 +59,5 @@ public class AppDetails {
     public void setIconDrawableId(Drawable iconDrawableId) {
         this.iconDrawableId = iconDrawableId;
     }
-
-    /*public int getIconResourceId() {
-        return iconResourceId;
-    }*/
 
 }

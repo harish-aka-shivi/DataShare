@@ -49,7 +49,7 @@ public class AppDetails {
     }
 
     public void setCheckBoxSelected(boolean checkBoxSelected) {
-        isCheckBoxSelected = checkBoxSelected;
+        this.isCheckBoxSelected = checkBoxSelected;
     }
 
     public boolean getCheckBoxSelected() {

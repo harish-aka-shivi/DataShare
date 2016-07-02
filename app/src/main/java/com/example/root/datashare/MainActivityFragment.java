@@ -66,17 +66,20 @@ public class MainActivityFragment extends Fragment {
             public void onClick(View v) {
                 ArrayList<Uri> listAppUri = new ArrayList<Uri>();
                 for(int i = 0; i < mDataset.size(); i++) {
+                    //Log.d(MAIN_ACTIVITY_FRAGMENT,"dataset" + mDataset.size());
                     AppDetails singleApp = mDataset.get(i);
-                    if (singleApp.getCheckBoxSelected() ) {
+                    if (singleApp.getCheckBoxSelected()) {
+                        Log.d(MAIN_ACTIVITY_FRAGMENT,"is Selected" + singleApp.getCheckBoxSelected());
                         String filePath = mDataset.get(i).getAppLocation();
                         Toast.makeText(getActivity(),filePath,Toast.LENGTH_LONG).show();
                         Uri pathUri = Uri.fromFile(new File(filePath));
                         listAppUri.add(pathUri);
                     }
                 }
+
                 Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                //sendIntent.setType("*/*");
-                sendIntent.setType("application/nd.android.package-archive");
+                sendIntent.setType("*/*");
+                //sendIntent.setType("application/nd.android.package-archive");
                 sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,listAppUri);
                 startActivity(Intent.createChooser(sendIntent, "Share app"));
             }

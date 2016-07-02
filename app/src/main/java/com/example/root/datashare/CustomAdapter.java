@@ -97,14 +97,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 CheckBox checkBox = (CheckBox) v;
-                AppDetails appDetail = (AppDetails) checkBox.getTag();
-                appDetail.setCheckBoxSelected(checkBox.isSelected());
-                mDataSet.get(position).setCheckBoxSelected(checkBox.isSelected());
+                //AppDetails appDetail = (AppDetails) checkBox.getTag();
+                AppDetails appDetail = mDataSet.get(position);
+                appDetail.setCheckBoxSelected(checkBox.isChecked());
+                Log.d(" check box sele " , "  :::::" + checkBox.isChecked());
+                mDataSet.get(position).setCheckBoxSelected(checkBox.isChecked());
 
+                Log.d("is Check Box Sel", "is Selected"+ mDataSet.get(position).getAppName()  + mDataSet.get(position).getCheckBoxSelected());
                 Toast.makeText(
                         v.getContext(),
                         "Clicked on Checkbox: " + ((AppDetails) checkBox.getTag()).getAppName() + " is "
-                                + checkBox.isChecked(), Toast.LENGTH_LONG).show();
+                                + mDataSet.get(position).getCheckBoxSelected(), Toast.LENGTH_LONG).show();
             }
         });
     }
